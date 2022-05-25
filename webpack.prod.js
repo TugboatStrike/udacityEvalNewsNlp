@@ -5,6 +5,10 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 module.exports = {
     entry: './src/client/index.js',
     mode: 'production',
+    output: { // creates a library for the global to call local functions.
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     module: {
         rules: [
             {

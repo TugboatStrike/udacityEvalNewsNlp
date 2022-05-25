@@ -8,6 +8,10 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
+    output: { // creates a library for the global to call local functions.
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     module: {
         rules: [
             {
