@@ -25,7 +25,7 @@ module.exports = {
             {
                 //test: /\.scss$/,
                 test: /\.(sa|sc|c)ss$/,
-                exclude: /node_modules/,
+                //exclude: /node_modules/,
                 //use: ['style-loader', 'css-loader', 'sass-loader']
                 // in order to use this MiniCssExtractPlugin i had to bump
                 // webpack version to 4.40 from 3.36
