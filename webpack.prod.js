@@ -2,15 +2,15 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     entry: './src/client/index.js',
     mode: 'production',
-    /*optimization: {
+    optimization: {
         minimizer: [new TerserPlugin({}), new OptimizeCssAssetsPlugin({})],
-    },*/
+    },
     output: { // creates a library for the global to call local functions.
         libraryTarget: 'var',
         library: 'Client'
@@ -28,7 +28,7 @@ module.exports = {
                 exclude: /node_modules/,
                 //use: ['style-loader', 'css-loader', 'sass-loader']
                 // in order to use this MiniCssExtractPlugin i had to bump
-                // webpack version to 4.40 ...
+                // webpack version to 4.40 from 3.36
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             }
         ]
