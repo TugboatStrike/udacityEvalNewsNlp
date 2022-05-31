@@ -18,6 +18,20 @@ process and analyze large amounts of natural language data.
 
 You could spend years and get a masters degree focusing on the details of creating NLP systems and algorithms. Typically, NLP programs require far more resources than individuals have access to, but a fairly new API called Aylien has put a public facing API in front of their NLP system. We will use it in this project to determine various attributes of an article or blog post.
 
+## Initial install
+
+The required packages are set up for a simple `npm install` command.
+
+## Setting up the .env file
+
+The environment `.env` file will need to be created in the root directory.
+In the file the following will need to be added.
+
+`MEANING_CLOUD_API_KEY=**************************`
+
+
+
+
 ## Getting started
 
 It would probably be good to first get your basic project setup and functioning. Follow the steps from the course up to Lesson 4 but don't add Service Workers just yet. We won't need the service workers during development and having extra caches floating around just means there's more potential for confusion. So, fork this repo and begin your project setup.
@@ -79,8 +93,8 @@ console.log(`Your API key is ${process.env.API_KEY}`);
 ...Not that you would want to do that. This means that our updated API credential settings will look like this:
 ```javascript
 // set aylien API credentials
-// NOTICE that textapi is the name I used, but it is arbitrary. 
-// You could call it aylienapi, nlp, or anything else, 
+// NOTICE that textapi is the name I used, but it is arbitrary.
+// You could call it aylienapi, nlp, or anything else,
 //   just make sure to make that change universally!
 var textapi = new aylien({
   application_id: process.env.API_ID,
@@ -90,7 +104,7 @@ var textapi = new aylien({
 
 ### Step 5: Using the API
 
-We're ready to go! The API has a lot of different endpoints you can take a look at [here](https://docs.aylien.com/textapi/endpoints/#api-endpoints). And you can see how using the SDK simplifies the requests we need to make. 
+We're ready to go! The API has a lot of different endpoints you can take a look at [here](https://docs.aylien.com/textapi/endpoints/#api-endpoints). And you can see how using the SDK simplifies the requests we need to make.
 
 I won't provide further examples here, as it's up to you to create the various requests and make sure your server is set up appropriately.
 
@@ -100,7 +114,7 @@ Once you are hooked up to the Aylien API, you are most of the way there! Along w
 
 - Parse the response body to dynamically fill content on the page.
 - Test that the server and form submission work, making sure to also handle error responses if the user input does not match API requirements. 
-- Go back to the web pack config and add the setup for service workers.  
+- Go back to the web pack config and add the setup for service workers. 
 - Test that the site is now available even when you stop your local server 
 
 ## Deploying
