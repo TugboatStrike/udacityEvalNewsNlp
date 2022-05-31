@@ -1,6 +1,11 @@
 var path = require('path')
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
+const dotenv = require('dotenv');
+
+
+dotenv.config(); // allowing the .env file to be called by dotenv module.
+
 
 const app = express()
 
@@ -21,3 +26,6 @@ app.listen(8080, function () {
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
 })
+
+
+//console.log(`Api Key: ${process.env.MEANING_CLOUD_API_KEY}`);
