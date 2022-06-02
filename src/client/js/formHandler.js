@@ -16,15 +16,19 @@ function handleSubmit(event) {
     //console.log(getSentiment(objectSend));
     //console.log(getSentiment(createJson(formText)));
     getSentiment(createJson(formText))
-      .then(sentRes => console.log('SentimentRes: ', sentRes ))
-      .catch(e => console.log('errSentRes1',e))
+      .then(anotherRes => {
+        console.log('anotherRes: ', anotherRes);
+        updateResults(anotherRes);
+        return anotherRes;
+      }).catch(e => console.log('errResult1', e))
 
 
     console.log("::: Form Submitted :::")
     fetch('http://localhost:8080/test')
     .then(res => res.json())
     .then(function(res) {
-        document.getElementById('results').innerHTML = res.message
+        console.log('skipping msg: ', res.message);
+        //document.getElementById('results').innerHTML = res.message
     })
 }
 
@@ -54,4 +58,13 @@ async function getSentiment( data){
     const jsonResponse = await response.json();
     //console.log('json res from server: ', jsonResponse);
     return jsonResponse;
+}
+
+
+function updateResults(jsonData) {
+  const sent = jsonData.agreement;
+  const conf = jsonData.confidence;
+  const tag = jsonData.score_tag;
+  const resaultMsg = `Sentiment: ${sent}| Confidence: ${conf}| Score Tag: ${tag}`
+  document.getElementById('results').innerHTML = resaultMsg;
 }
