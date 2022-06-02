@@ -3,18 +3,21 @@ function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
-    console.log('formText: ', formText);
+    //console.log('formText: ', formText);
     Client.checkForName(formText)
 
     /*
     let objectSend = {};
     objectSend['text'] = formText;
     console.log('objectSend: ', objectSend);*/
-    let objectSend = createJson(formText);
+    //let objectSend = createJson(formText);
 
     //console.log(getSentiment(formText));
     //console.log(getSentiment(objectSend));
-    console.log(getSentiment(createJson(formText)));
+    //console.log(getSentiment(createJson(formText)));
+    getSentiment(createJson(formText))
+      .then(sentRes => console.log('SentimentRes: ', sentRes ))
+      .catch(e => console.log('errSentRes1',e))
 
 
     console.log("::: Form Submitted :::")
@@ -41,7 +44,6 @@ async function getSentiment( data){
     //const url = ''
     console.log('the  data : ',  data );
     const response = await fetch('/sentiment', {
-    //const response = await fetch('http://localhost:8080/sentiment', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       credentials: 'same-origin',  // no-cors, *cors, same-origin
       headers: {
@@ -50,8 +52,6 @@ async function getSentiment( data){
       body: JSON.stringify(data)
     })
     const jsonResponse = await response.json();
-    console.log('json res from server: ', jsonResponse);
-    //console.log('res from server: ', response);
-    //console.log('res from server: ', response.value);
-    //console.log('client res: ',response.body);
+    //console.log('json res from server: ', jsonResponse);
+    return jsonResponse;
 }

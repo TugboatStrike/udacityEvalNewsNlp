@@ -80,7 +80,7 @@ function mcUrl(text, mcType) {
 async function sentFetch(text) {
   const response = await fetch(mcUrl(text, mc.types.sent),mc.fetchOp)
   const jsonInfo = await response.json();
-  console.log('jsonInfo: ', jsonInfo);
+  //console.log('jsonInfo: ', jsonInfo);
   //console.log('sentFetch response: ', response);
   //return response;
   return jsonInfo;
@@ -97,8 +97,8 @@ app.post('/sentiment', function(request, response) {
     const dataText = request.body.data;
     //const reqJson = response.json();
     console.log('start sentiment');
-    console.log('body: ', request.body);
-    console.log('data: ', request.body.data);
+    //console.log('body: ', request.body);
+    //console.log('data: ', request.body.data);
     sentFetch(dataText)
       //.then(fetchRes => fetchRes.json()).catch(e => console.log('errRes1',e))
       /*.then(resJson => console.log('fetchRes: ',resJson))
@@ -107,7 +107,7 @@ app.post('/sentiment', function(request, response) {
       .then(resJson => response.json(resJson))
       .catch(e => console.log('errSend1',e))*/
       .then(resJson => {
-        console.log('fetchRes: ', resJson);
+        //console.log('fetchRes: ', resJson);
         response.json(resJson);
       }).catch(e => console.log('errSend1',e))
     //console.log('request: ', request);
