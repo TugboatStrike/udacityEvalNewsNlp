@@ -18,7 +18,7 @@ function handleSubmit(event) {
     getSentiment(createJson(formText))
       .then(anotherRes => {
         console.log('anotherRes: ', anotherRes);
-        updateResults(anotherRes);
+        updateResults(anotherRes, formText);
         return anotherRes;
       }).catch(e => console.log('errResult1', e))
 
@@ -61,10 +61,14 @@ async function getSentiment( data){
 }
 
 
-function updateResults(jsonData) {
+function updateResults(jsonData, textRes) {
+  const text = textRes;
   const sent = jsonData.agreement;
   const conf = jsonData.confidence;
   const tag = jsonData.score_tag;
-  const resaultMsg = `Sentiment: ${sent}| Confidence: ${conf}| Score Tag: ${tag}`
+  const resaultMsg = String.raw`Sentiment: ${sent} | Confidence: ${conf} | Score Tag: ${tag}
+
+  || Text being checked: 
+  ${text}`;
   document.getElementById('results').innerHTML = resaultMsg;
 }
