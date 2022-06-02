@@ -8,6 +8,18 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
+    devServer: {
+        // Server index.html as the base
+        contentBase: "./src/client",
+        // Enable compression
+        compress: true,
+        // Enable hot reloading
+        hot: true,
+        //host, // default it will use localhost as host names
+        port: 8080,
+        publicPath: '/',
+
+    },
     output: { // creates a library for the global to call local functions.
         libraryTarget: 'var',
         library: 'Client'
