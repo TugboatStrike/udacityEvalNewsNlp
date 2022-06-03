@@ -10,7 +10,8 @@ function handleSubmit(event) {
 
     getSentiment(createJson(formText))
       .then(anotherRes => {
-
+        updateResults(anotherRes, formText);
+        console.log('anotherRes: ', anotherRes);
         // checking code status
         const code = (anotherRes.status.code != 0);
         // checking for undefined agreement
@@ -31,8 +32,7 @@ ${anotherRes.status.msg}`);
           updateResults(anotherRes, formText);
         };
         */
-        updateResults(anotherRes, formText);
-        console.log('anotherRes: ', anotherRes);
+
         return anotherRes;
       }).catch(e => console.log('errResult1', e))
 
