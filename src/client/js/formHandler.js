@@ -6,8 +6,11 @@ function handleSubmit(event) {
     //console.log('formText: ', formText);
     Client.checkForName(formText)
 
+
+
     getSentiment(createJson(formText))
       .then(anotherRes => {
+
         // checking code status
         const code = (anotherRes.status.code != 0);
         // checking for undefined agreement
@@ -17,13 +20,19 @@ function handleSubmit(event) {
         if (code) {
           alert(`err code: ${anotherRes.status.code}
 ${anotherRes.status.msg}`);
+        //  };
+
         }else if (defined) {
           alert('Please enter a different value')
         }else if (scoreDefined) {
           alert('Entered Value could not be scored')
-        }else {
+        };
+        /*}else {
           updateResults(anotherRes, formText);
         };
+        */
+        updateResults(anotherRes, formText);
+        console.log('anotherRes: ', anotherRes);
         return anotherRes;
       }).catch(e => console.log('errResult1', e))
 
@@ -40,8 +49,10 @@ export { handleSubmit }
 
 // create a json object dictionary with data as the key word.
 function createJson(text) {
+    const urlSts = isUrl(text);
     const objectJson = {
       data: text,
+      is_url: urlSts,
     };
     return objectJson
 }
@@ -75,4 +86,12 @@ function updateResults(jsonData, textRes) {
   || Text being checked:
   ${text}`;
   document.getElementById('results').innerHTML = resaultMsg;
+}
+
+
+function isUrl(text) {
+  const regex = /http/;
+  const result = regex.test(text);
+  console.log("regex: ", result);
+  return result;
 }

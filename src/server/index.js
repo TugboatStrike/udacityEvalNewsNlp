@@ -58,7 +58,7 @@ mc = {
 };
 
 // create url for meaning cloud api url fetch call
-function mcUrl(text, mcType) {
+function textUrl(text, mcType) {
   const tx = encodeURIComponent(text);
   const ht = mc.https;
   const hn = mc.hostname;
@@ -66,13 +66,29 @@ function mcUrl(text, mcType) {
   const lg = mc.lang;
   const type = mcType;
   const mod = 'test';
+  //const url = String.raw`${ht}${hn}${type}${key}&lang=${lg}&url=${tx}`;
   const url = String.raw`${ht}${hn}${type}${key}&lang=${lg}&txt=${tx}`;
   return url;
 };
 
+// create url for meaning cloud api url fetch call
+function urlUrl(urlText, mcType) {
+  //const tx = encodeURIComponent(text);
+  const txU = urlText;
+  const ht = mc.https;
+  const hn = mc.hostname;
+  const key = mc.key;
+  const lg = mc.lang;
+  const type = mcType;
+  const mod = 'test';
+  const url = String.raw`${ht}${hn}${type}${key}&lang=${lg}&url=${txU}`;
+  //const url = String.raw`${ht}${hn}${type}${key}&lang=${lg}&txt=${tx}`;
+  return url;
+};
+
 // meaning cloud sentiment api fetch
-async function sentFetch(text) {
-  const response = await fetch(mcUrl(text, mc.types.sent),mc.fetchOp)
+async function sentFetch(url) {
+  const response = await fetch(url,mc.fetchOp)
   const jsonInfo = await response.json();
   return jsonInfo;
 };
@@ -81,8 +97,16 @@ async function sentFetch(text) {
 // this takes the text and fetches the sentiment api
 app.post('/sentiment', function(request, response) {
     const dataText = request.body.data;
+    const isUrl = request.body.is_url;
+    let urlString = '';
+    console.log('req Body: ', request.body);
     console.log('start sentiment');
-    sentFetch(dataText)
+    if (isUrl) {
+      urlString = urlUrl(dataText, mc.types.sent)
+    } else {
+      urlString = textUrl(dataText, mc.types.sent)
+    }
+    sentFetch(urlString)
       .then(resJson => {
         response.json(resJson);
       }).catch(e => console.log('errSend1',e))
