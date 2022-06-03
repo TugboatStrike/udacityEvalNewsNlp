@@ -6,23 +6,13 @@ function handleSubmit(event) {
     //console.log('formText: ', formText);
     Client.checkForName(formText)
 
-    /*
-    let objectSend = {};
-    objectSend['text'] = formText;
-    console.log('objectSend: ', objectSend);*/
-    //let objectSend = createJson(formText);
-
-    //console.log(getSentiment(formText));
-    //console.log(getSentiment(objectSend));
-    //console.log(getSentiment(createJson(formText)));
     getSentiment(createJson(formText))
       .then(anotherRes => {
         console.log('anotherRes: ', anotherRes);
         updateResults(anotherRes, formText);
         return anotherRes;
       }).catch(e => console.log('errResult1', e))
-
-
+      
     console.log("::: Form Submitted :::")
     fetch('http://localhost:8080/test')
     .then(res => res.json())
@@ -34,7 +24,7 @@ function handleSubmit(event) {
 
 export { handleSubmit }
 
-
+// create a json object dictionary with data as the key word.
 function createJson(text) {
     const objectJson = {
       data: text,
@@ -68,7 +58,7 @@ function updateResults(jsonData, textRes) {
   const tag = jsonData.score_tag;
   const resaultMsg = String.raw`Sentiment: ${sent} | Confidence: ${conf} | Score Tag: ${tag}
 
-  || Text being checked: 
+  || Text being checked:
   ${text}`;
   document.getElementById('results').innerHTML = resaultMsg;
 }
