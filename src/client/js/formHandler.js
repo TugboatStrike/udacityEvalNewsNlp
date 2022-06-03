@@ -8,17 +8,15 @@ function handleSubmit(event) {
 
     getSentiment(createJson(formText))
       .then(anotherRes => {
-        //console.log('anotherRes?: ',anotherRes);
+        // checking code status
         const code = (anotherRes.status.code != 0);
-        console.log('code: ', code, ' | ',anotherRes.status.code);
+        // checking for undefined agreement
         const defined = (anotherRes.agreement === undefined);
-        console.log('defined: ', defined, ' | ',anotherRes.agreement);
+        // checking for scored value
         const scoreDefined = (anotherRes.score_tag === 'NONE');
-        console.log('scoreDefined: ', scoreDefined, ' | ',anotherRes.score_tag);
-        //console.log('anotherRes2: ', anotherRes);
         if (code) {
           alert(`err code: ${anotherRes.status.code}
-            msg: ${anotherRes.status.msg}`);
+${anotherRes.status.msg}`);
         }else if (defined) {
           alert('Please enter a different value')
         }else if (scoreDefined) {
