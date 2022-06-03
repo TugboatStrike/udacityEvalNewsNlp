@@ -8,11 +8,27 @@ function handleSubmit(event) {
 
     getSentiment(createJson(formText))
       .then(anotherRes => {
-        console.log('anotherRes: ', anotherRes);
-        updateResults(anotherRes, formText);
+        //console.log('anotherRes?: ',anotherRes);
+        const code = (anotherRes.status.code != 0);
+        console.log('code: ', code, ' | ',anotherRes.status.code);
+        const defined = (anotherRes.agreement === undefined);
+        console.log('defined: ', defined, ' | ',anotherRes.agreement);
+        const scoreDefined = (anotherRes.score_tag === 'NONE');
+        console.log('scoreDefined: ', scoreDefined, ' | ',anotherRes.score_tag);
+        //console.log('anotherRes2: ', anotherRes);
+        if (code) {
+          alert(`err code: ${anotherRes.status.code}
+            msg: ${anotherRes.status.msg}`);
+        }else if (defined) {
+          alert('Please enter a different value')
+        }else if (scoreDefined) {
+          alert('Entered Value could not be scored')
+        }else {
+          updateResults(anotherRes, formText);
+        };
         return anotherRes;
       }).catch(e => console.log('errResult1', e))
-      
+
     console.log("::: Form Submitted :::")
     fetch('http://localhost:8080/test')
     .then(res => res.json())
