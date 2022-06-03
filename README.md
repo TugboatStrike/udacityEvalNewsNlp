@@ -1,4 +1,4 @@
-# Project Instructions
+# Project description
 
 This project creates a server with a client webpage all localhost on port 8080.
 
