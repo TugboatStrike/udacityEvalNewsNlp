@@ -4,13 +4,13 @@ function handleSubmit(event) {
     // check what text was put into the form field
     let formText = document.getElementById('name').value
     //console.log('formText: ', formText);
-    Client.checkForName(formText)
+    let capResponse = Client.checkForName(formText)
 
 
 
     getSentiment(createJson(formText))
       .then(anotherRes => {
-        updateResults(anotherRes, formText);
+        updateResults(anotherRes, formText, capResponse);
         console.log('anotherRes: ', anotherRes);
         // checking code status
         const code = (anotherRes.status.code != 0);
@@ -76,12 +76,12 @@ async function getSentiment( data){
 }
 
 
-function updateResults(jsonData, textRes) {
+function updateResults(jsonData, textRes, greeting) {
   const text = textRes;
   const sent = jsonData.agreement;
   const conf = jsonData.confidence;
   const tag = jsonData.score_tag;
-  const resaultMsg = String.raw`Sentiment: ${sent} | Confidence: ${conf} | Score Tag: ${tag}
+  const resaultMsg = String.raw`${greeting} | Sentiment: ${sent} | Confidence: ${conf} | Score Tag: ${tag}
 
   || Text being checked:
   ${text}`;

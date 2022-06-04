@@ -13,6 +13,8 @@ function checkForName(inputText) {
         response = 'Welcome, Captain!';
         //alert("Welcome, Captain!")
         console.log('Welcome, Captain!');
+    }else {
+      response = 'Welcome!'
     }
     return response;
 }
